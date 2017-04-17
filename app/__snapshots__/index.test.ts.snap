@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get empty model: getEmpty() 1`] = `
+ClassDecoratorExample {
+  "age": 16,
+  "date": undefined,
+  "list": undefined,
+  "name": "fghk",
+}
+`;
+
+exports[`Get empty model: getEmpty() 2`] = `
+ClassDecoratorExample {
+  "age": 16,
+  "date": undefined,
+  "list": undefined,
+  "name": "fghk",
+}
+`;
+
+exports[`Get empty object: getEmpty() 1`] = `
+ClassDecoratorExample {
+  "age": 16,
+  "date": undefined,
+  "list": undefined,
+  "name": "fghk",
+}
+`;
+
+exports[`model instanciate 1`] = `
+Model {
+  "data": ClassDecoratorExample {
+    "age": 16,
+    "date": undefined,
+    "list": undefined,
+    "name": "fghk",
+  },
+  "schema": Object {
+    "description": "teste",
+    "properties": Object {
+      "age": Object {
+        "default": 16,
+        "type": "Numberd",
+      },
+      "ages": Object {
+        "maximum": 23,
+      },
+      "date": Object {
+        "format": "date",
+      },
+      "list": Object {
+        "type": "array",
+      },
+      "name": Object {
+        "default": "fghk",
+        "title": "Name",
+        "type": "string",
+      },
+    },
+  },
+}
+`;
+
+exports[`static decorator static 1`] = `
+Object {
+  "description": "teste",
+  "properties": Object {
+    "age": Object {
+      "default": 16,
+      "type": "Numberd",
+    },
+    "ages": Object {
+      "maximum": 23,
+    },
+    "date": Object {
+      "format": "date",
+    },
+    "list": Object {
+      "type": "array",
+    },
+    "name": Object {
+      "default": "fghk",
+      "title": "Name",
+      "type": "string",
+    },
+  },
+}
+`;
