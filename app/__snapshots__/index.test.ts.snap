@@ -5,7 +5,7 @@ ClassDecoratorExample {
   "age": 16,
   "date": undefined,
   "list": undefined,
-  "name": "fghk",
+  "name": "fghkkk",
 }
 `;
 
@@ -14,7 +14,7 @@ ClassDecoratorExample {
   "age": 16,
   "date": undefined,
   "list": undefined,
-  "name": "fghk",
+  "name": "fghkkk",
 }
 `;
 
@@ -23,7 +23,7 @@ ClassDecoratorExample {
   "age": 16,
   "date": undefined,
   "list": undefined,
-  "name": "fghk",
+  "name": "fghkkk",
 }
 `;
 
@@ -33,26 +33,28 @@ Model {
     "age": 16,
     "date": undefined,
     "list": undefined,
-    "name": "fghk",
+    "name": "fghkkk",
   },
   "schema": Object {
     "description": "teste",
     "properties": Object {
       "age": Object {
         "default": 16,
-        "type": "Numberd",
+        "type": "number",
       },
       "ages": Object {
         "maximum": 23,
+        "type": "number",
       },
       "date": Object {
         "format": "date",
+        "type": "string",
       },
       "list": Object {
         "type": "array",
       },
       "name": Object {
-        "default": "fghk",
+        "default": "fghkkk",
         "title": "Name",
         "type": "string",
       },
@@ -67,19 +69,21 @@ Object {
   "properties": Object {
     "age": Object {
       "default": 16,
-      "type": "Numberd",
+      "type": "number",
     },
     "ages": Object {
       "maximum": 23,
+      "type": "number",
     },
     "date": Object {
       "format": "date",
+      "type": "string",
     },
     "list": Object {
       "type": "array",
     },
     "name": Object {
-      "default": "fghk",
+      "default": "fghkkk",
       "title": "Name",
       "type": "string",
     },
