@@ -50,7 +50,14 @@
     "globals": {
       "__TS_CONFIG__": {
         "module": "commonjs",
-        "jsx": "react"
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+         "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "noEmitHelpers": true,
+        "importHelpers": true
       }
     }
   }

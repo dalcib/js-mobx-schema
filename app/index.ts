@@ -1,18 +1,20 @@
 import {schema} from "./decorator";
 import {JsonSchema} from './JsonSchema';
+import 'reflect-metadata';
 
 class ClassDecoratorExample {
     static schema: JsonSchema = {
         description: 'teste',
         properties: {
-            name: {default: 'fghk'}
+            name: {default: 'fghkkk'}
         }
     }
 
     @schema({type: 'string', title: 'Name' })
-    name: string | undefined //= undefined
+    //@Reflect.metadata("design:type", 'string')
+    name?: string //= undefined
 
-    @schema({type: 'Numberd'})
+    @schema({type: 'Number'})
     age: number = 16
 
     @schema({maximum: 23})
@@ -43,8 +45,10 @@ class ClassDecoratorExample {
 const example = new ClassDecoratorExample()
 const type = Reflect.getMetadata("design:type", ClassDecoratorExample, 'name');
 const typeAge = Reflect.getMetadata("design:type", ClassDecoratorExample, 'age');
+const x = Reflect.hasMetadata("design:type", example, 'name')
 const t = Reflect.getMetadata("design:type", example, 'name');
-console.log('type', t, type, typeAge)
+const tt = Reflect.getMetadata("design:type", example, 'age');
+//console.log('type', t, tt.name, x, type, typeAge)
 //ClassDecoratorExample.schema = {description: 'teste'}
 
 export default ClassDecoratorExample

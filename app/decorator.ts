@@ -1,3 +1,33 @@
+import 'reflect-metadata';
+import {JsonSchema} from './JsonSchema';
+
+export function schema(jsonSchema: JsonSchema): PropertyDecorator  {
+    return (target: any, propertyKey: string /*| symbol*/): void => {
+        const newInstance = new target.constructor()
+        const propertyDefinition = Object.getOwnPropertyDescriptor(target, propertyKey)
+        let get: boolean = false
+        if (propertyDefinition) {
+            get = (!!propertyDefinition.get)
+        }
+        const schema = target.constructor.schema
+        if (!schema.properties) schema.properties = {}
+        schema.properties[propertyKey] = {...schema.properties[propertyKey], ...jsonSchema}
+        if (newInstance[propertyKey] && !get) {
+            schema.properties[propertyKey].default = newInstance[propertyKey]
+        }
+        const t = Reflect.getMetadata("design:type", newInstance, propertyKey);
+        if (t && t.name) {
+            console.log(t.name)
+            schema.properties[propertyKey] = {
+                ...schema.properties[propertyKey],
+                ...{type: t.name.toLowerCase()}
+            }
+        }
+        //console.log('type', propertyKey, t.name, Reflect.getMetadataKeys(newInstance));
+        console.log("schema", schema, propertyDefinition);
+    }
+}
+
 /*
 
 export  function schema(jsonSchema: any) {
@@ -34,28 +64,3 @@ function logType(target : any, key : string) {
         }
     }
 */
-
-import 'reflect-metadata';
-import {JsonSchema} from './JsonSchema';
-
-export function schema(jsonSchema: JsonSchema): PropertyDecorator  {
-    return (target: any, propertyKey: string /*| symbol*/): void => {
-        const newInstance = new target.constructor()
-        const propertyDefinition = Object.getOwnPropertyDescriptor(target, propertyKey)
-        let get: boolean = false
-        if (propertyDefinition) {
-            get = (!!propertyDefinition.get)
-        }
-        const schema = target.constructor.schema
-        if (!schema.properties) schema.properties = {}
-        schema.properties[propertyKey] = {...schema.properties[propertyKey], ...jsonSchema}
-        if (newInstance[propertyKey] && !get) {
-            schema.properties[propertyKey].default = newInstance[propertyKey]
-        }
-        //const t = Reflect.getMetadata("design:type", target, propertyKey);
-        //schema.properties[propertyKey] = {...schema.properties[propertyKey], ...{type: t.name.toLowerCase}}
-    }
-}
-
-        //console.log('type', t);
-        //console.log(schema);

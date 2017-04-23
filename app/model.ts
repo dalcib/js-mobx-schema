@@ -1,4 +1,4 @@
-import ClassDecoratorExample from './index';
+//import ClassDecoratorExample from './index';
 
 export default class Model {
   schema: any
@@ -27,6 +27,6 @@ export default class Model {
   }
 }
 
-const model = new Model(ClassDecoratorExample)
+//const model = new Model(ClassDecoratorExample)
 
 //console.log(model.toJS());
