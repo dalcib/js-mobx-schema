@@ -1,6 +1,7 @@
 import {schema} from "./decorator";
 import {JsonSchema} from './JsonSchema';
 import 'reflect-metadata';
+import { autorun, observable } from 'mobx';
 
 class ClassDecoratorExample {
     static schema: JsonSchema = {
@@ -10,11 +11,14 @@ class ClassDecoratorExample {
         }
     }
 
-    @schema({type: 'string', title: 'Name' })
+    @schema({title: 'Name', required: true })
     //@Reflect.metadata("design:type", 'string')
     name?: string //= undefined
 
-    @schema({type: 'Number'})
+    //@observable
+    point: boolean = false
+
+    @schema()
     age: number = 16
 
     @schema({maximum: 23})
@@ -43,12 +47,16 @@ class ClassDecoratorExample {
 ///ClassDecoratorExample.schema = {...ClassDecoratorExample.schema, ...{properties: {date: {format: 'date'}}}}
 
 const example = new ClassDecoratorExample()
-const type = Reflect.getMetadata("design:type", ClassDecoratorExample, 'name');
-const typeAge = Reflect.getMetadata("design:type", ClassDecoratorExample, 'age');
-const x = Reflect.hasMetadata("design:type", example, 'name')
+//autorun(() => {console.log('teste observable', example.name, example.point)} )
+example.name = "Dalci"
+example.point = true
+//const type = Reflect.getMetadata("design:type", ClassDecoratorExample, 'name');
+//const typeAge = Reflect.getMetadata("design:type", ClassDecoratorExample, 'age');
+/*const x = Reflect.hasMetadata("design:type", example, 'name')
 const t = Reflect.getMetadata("design:type", example, 'name');
 const tt = Reflect.getMetadata("design:type", example, 'age');
-//console.log('type', t, tt.name, x, type, typeAge)
+console.log('type', t, tt.name, x)*/
 //ClassDecoratorExample.schema = {description: 'teste'}
+
 
 export default ClassDecoratorExample

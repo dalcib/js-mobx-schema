@@ -1,42 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Get empty model: getEmpty() 1`] = `
-ClassDecoratorExample {
-  "age": 16,
-  "date": undefined,
-  "list": undefined,
-  "name": "fghkkk",
-}
-`;
-
-exports[`Get empty model: getEmpty() 2`] = `
-ClassDecoratorExample {
-  "age": 16,
-  "date": undefined,
-  "list": undefined,
-  "name": "fghkkk",
-}
-`;
-
-exports[`Get empty object: getEmpty() 1`] = `
-ClassDecoratorExample {
-  "age": 16,
-  "date": undefined,
-  "list": undefined,
-  "name": "fghkkk",
-}
-`;
-
 exports[`model instanciate 1`] = `
 Model {
-  "data": ClassDecoratorExample {
+  "data": Object {
     "age": 16,
     "date": undefined,
-    "list": undefined,
+    "list": Array [],
     "name": "fghkkk",
+    "point": false,
   },
+  "errors": Array [
+    Object {
+      "data": Array [],
+      "dataPath": ".list",
+      "keyword": "type",
+      "message": "should be array",
+      "params": Object {
+        "type": "array",
+      },
+      "parentSchema": Object {
+        "type": "array",
+      },
+      "schema": "array",
+      "schemaPath": "#/properties/list/type",
+    },
+  ],
+  "handleChange": [Function],
   "schema": Object {
+    "$schema": "http://json-schema.org/schema#",
     "description": "teste",
+    "id": "ClassDecoratorExample",
     "properties": Object {
       "age": Object {
         "default": 16,
@@ -59,13 +52,21 @@ Model {
         "type": "string",
       },
     },
+    "required": Array [
+      "name",
+    ],
+    "title": "ClassDecoratorExample",
+    "type": "object",
   },
+  "validate": [Function],
 }
 `;
 
 exports[`static decorator static 1`] = `
 Object {
+  "$schema": "http://json-schema.org/schema#",
   "description": "teste",
+  "id": "ClassDecoratorExample",
   "properties": Object {
     "age": Object {
       "default": 16,
@@ -88,5 +89,10 @@ Object {
       "type": "string",
     },
   },
+  "required": Array [
+    "name",
+  ],
+  "title": "ClassDecoratorExample",
+  "type": "object",
 }
 `;

@@ -1,5 +1,6 @@
 import ClassDecoratorExample from "./index";
 import Model from './model';
+import { autorun, whyRun, isObservable } from 'mobx';
 
 //const classDecoratorExample = new ClassDecoratorExample()
 const example = new ClassDecoratorExample()
@@ -25,21 +26,22 @@ describe('non-static decorator', () => {
   })
 })
 
-describe('Get empty object:', () => {
+/*describe('Get empty object:', () => {
   it('getEmpty()', () => {
+    //console.log(example.schema, example.constructor.prototype.schema, example.constructor.schema);
     expect(example.getEmpty()).toMatchSnapshot()
     model.getEmpty()
     expect(model.data).toEqual(example.getEmpty())
   })
-})
+})*/
 
-describe('Get empty model:', () => {
+/*describe('Get empty model:', () => {
   it('getEmpty()', () => {
     expect(model.data).toMatchSnapshot()
     model.getEmpty()
     expect(model.data).toMatchSnapshot()
   })
-})
+})*/
 
 describe('model', () => {
   it('instanciate', () => {
@@ -52,3 +54,18 @@ describe('static decorator', () => {
     expect(model.schema).toMatchSnapshot()
   })
 })
+
+
+describe('Observable', () => {
+  let count = 0
+  autorun(() => {count = count + 1; /*whyRun()*/ } )
+  example.name = 'Melina'
+  example.name = 'Melina Bagolin'
+  example.point = true
+  //console.log('isObservablecc', isObservable(example.point))
+  it('should run', () => {
+    expect(count).toEqual(1)
+  });
+
+});
+

@@ -43,7 +43,9 @@
   "license": "MIT",
   "main": "index.js",
   "jest": {
-    "transform": {".(ts|tsx)": "<rootDir>/../node_modules/ts-jest/preprocessor.js"},
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/../node_modules/ts-jest/preprocessor.js"
+    },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
     "moduleFileExtensions": ["ts", "tsx", "js" ],
     "rootDir": "app",
@@ -53,9 +55,9 @@
         "jsx": "react",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
-         "allowSyntheticDefaultImports": true,
+        "allowSyntheticDefaultImports": true,
         "moduleResolution": "node",
-        "strictNullChecks": true,
+        "strict": true,
         "noEmitHelpers": true,
         "importHelpers": true
       }

@@ -6,9 +6,9 @@
  *     "type": "string"
  * }
  */
-type SimpleType = "array" | "boolean" | "integer" | "null" | "number" | "object" | "string";
+import {MySchema} from './MySchema';
 
-export interface JsonSchema {
+export interface MySchema {
 
   $ref?: string;
 
@@ -26,11 +26,11 @@ export interface JsonSchema {
   /**
    * Title of the schema
    */
-  title?: string;
+  title?: string | (() => string);
   /**
    * Schema description
    */
-  description?: string;
+  description?: string | (() => string);
   /**
    * Default json for the object represented by this schema
    */
@@ -43,12 +43,12 @@ export interface JsonSchema {
    * The value must be a multiple of the number (e.g. 10 is a multiple of 5)
    */
   multipleOf?: number;
-  maximum?: number;
+  maximum?: number | (() => number);
   /**
    * If true maximum must be > value, >= otherwise
    */
   exclusiveMaximum?: boolean;
-  minimum?: number;
+  minimum?: number | (() => number);
   /**
    * If true minimum must be < value, <= otherwise
    */
@@ -57,8 +57,8 @@ export interface JsonSchema {
   ///////////////////////////////////////////////////////////////////////////
   // String Validation
   ///////////////////////////////////////////////////////////////////////////
-  maxLength?: number;
-  minLength?: number;
+  maxLength?: number | (() => number);
+  minLength?: number | (() => number);
   /**
    * This is a regex string that the value must conform to
    */
@@ -67,10 +67,10 @@ export interface JsonSchema {
   ///////////////////////////////////////////////////////////////////////////
   // Array Validation
   ///////////////////////////////////////////////////////////////////////////
-  additionalItems?: boolean | JsonSchema;
-  items?: JsonSchema | JsonSchema[];
-  maxItems?: number;
-  minItems?: number;
+  additionalItems?: boolean | MySchema;
+  items?: MySchema | MySchema[];
+  maxItems?: number | (() => number);
+  minItems?: number | (() => number);
   uniqueItems?: boolean;
 
   ///////////////////////////////////////////////////////////////////////////
@@ -78,25 +78,25 @@ export interface JsonSchema {
   ///////////////////////////////////////////////////////////////////////////
   maxProperties?: number;
   minProperties?: number;
-  required?: string[];
-  additionalProperties?: boolean | JsonSchema;
+  required?: string[] | boolean;
+  additionalProperties?: boolean | MySchema;
   /**
    * Holds simple JSON Schema definitions for referencing from elsewhere
    */
-  definitions?: { [key: string]: JsonSchema };
+  definitions?: { [key: string]: MySchema };
   /**
    * The keys that can exist on the object with the json schema that should validate their value
    */
-  properties?: { [property: string]: JsonSchema };
+  properties?: { [property: string]: MySchema };
   /**
    * The key of this object is a regex for which properties the schema applies to
    */
-  patternProperties?: { [pattern: string]: JsonSchema };
+  patternProperties?: { [pattern: string]: MySchema };
   /**
    * If the key is present as a property then the string of properties must also be present.
    * If the value is a JSON Schema then it must also be valid for the object if the key is present.
    */
-  dependencies?: { [key: string]: JsonSchema | string[] };
+  dependencies?: { [key: string]: MySchema | string[] };
 
   ///////////////////////////////////////////////////////////////////////////
   // Generic
@@ -109,21 +109,27 @@ export interface JsonSchema {
    * The basic type of this schema, can be one of [string, number, object, array, boolean, null] or an array of
    * the acceptable types
    */
-  type?: SimpleType | SimpleType[];
+  type?: string | string[] | Object;
 
   format?: string;
 
   ///////////////////////////////////////////////////////////////////////////
   // Combining Schemas
   ///////////////////////////////////////////////////////////////////////////
-  allOf?: JsonSchema[];
-  anyOf?: JsonSchema[];
-  oneOf?: JsonSchema[];
+  allOf?: MySchema[];
+  anyOf?: MySchema[];
+  oneOf?: MySchema[];
   /**
    * The entity being validated must not match this schema
    */
-  not?: JsonSchema;
+  not?: MySchema;
 
-/////////////////////////////////////////////////////////////
-
+  ///////////////////////////////////////////////////////////////////////////
+  // Hyperfish Specific
+  ///////////////////////////////////////////////////////////////////////////
+  /*viewProperties?: string[];
+  component?: string;
+  valueSource?: string;
+  identifiers?: string[];
+  links?: (MySchema & { rel: string, href: string })[];*/
 }
