@@ -6,11 +6,10 @@
  *     "type": "string"
  * }
  */
-import {MySchema} from './MySchema';
+import {MySchema} from './MySchema'
 
 export interface MySchema {
-
-  $ref?: string;
+  $ref?: string
 
   ///////////////////////////////////////////////////////////////////////////
   // Schema Metadata
@@ -18,23 +17,23 @@ export interface MySchema {
   /**
    * This is important because it tells refs where the root of the document is located
    */
-  id?: string;
+  id?: string
   /**
    * It is recommended that the meta-schema is included in the root of any json schema and must be a uri
    */
-  $schema?: string;
+  $schema?: string
   /**
    * Title of the schema
    */
-  title?: string | (() => string);
+  title?: string | (() => string)
   /**
    * Schema description
    */
-  description?: string | (() => string);
+  description?: string | (() => string)
   /**
    * Default json for the object represented by this schema
    */
-  'default'?: any;
+  'default'?: any
 
   ///////////////////////////////////////////////////////////////////////////
   // Number Validation
@@ -42,61 +41,61 @@ export interface MySchema {
   /**
    * The value must be a multiple of the number (e.g. 10 is a multiple of 5)
    */
-  multipleOf?: number;
-  maximum?: number | (() => number);
+  multipleOf?: number
+  maximum?: number | (() => number)
   /**
    * If true maximum must be > value, >= otherwise
    */
-  exclusiveMaximum?: boolean;
-  minimum?: number | (() => number);
+  exclusiveMaximum?: boolean
+  minimum?: number | (() => number)
   /**
    * If true minimum must be < value, <= otherwise
    */
-  exclusiveMinimum?: boolean;
+  exclusiveMinimum?: boolean
 
   ///////////////////////////////////////////////////////////////////////////
   // String Validation
   ///////////////////////////////////////////////////////////////////////////
-  maxLength?: number | (() => number);
-  minLength?: number | (() => number);
+  maxLength?: number | (() => number)
+  minLength?: number | (() => number)
   /**
    * This is a regex string that the value must conform to
    */
-  pattern?: string;
+  pattern?: string
 
   ///////////////////////////////////////////////////////////////////////////
   // Array Validation
   ///////////////////////////////////////////////////////////////////////////
-  additionalItems?: boolean | MySchema;
-  items?: MySchema | MySchema[];
-  maxItems?: number | (() => number);
-  minItems?: number | (() => number);
-  uniqueItems?: boolean;
+  additionalItems?: boolean | MySchema
+  items?: MySchema | MySchema[]
+  maxItems?: number | (() => number)
+  minItems?: number | (() => number)
+  uniqueItems?: boolean
 
   ///////////////////////////////////////////////////////////////////////////
   // Object Validation
   ///////////////////////////////////////////////////////////////////////////
-  maxProperties?: number;
-  minProperties?: number;
-  required?: string[] | boolean;
-  additionalProperties?: boolean | MySchema;
+  maxProperties?: number
+  minProperties?: number
+  required?: string[] | boolean
+  additionalProperties?: boolean | MySchema
   /**
    * Holds simple JSON Schema definitions for referencing from elsewhere
    */
-  definitions?: { [key: string]: MySchema };
+  definitions?: {[key: string]: MySchema}
   /**
    * The keys that can exist on the object with the json schema that should validate their value
    */
-  properties?: { [property: string]: MySchema };
+  properties?: {[property: string]: MySchema}
   /**
    * The key of this object is a regex for which properties the schema applies to
    */
-  patternProperties?: { [pattern: string]: MySchema };
+  patternProperties?: {[pattern: string]: MySchema}
   /**
    * If the key is present as a property then the string of properties must also be present.
    * If the value is a JSON Schema then it must also be valid for the object if the key is present.
    */
-  dependencies?: { [key: string]: MySchema | string[] };
+  dependencies?: {[key: string]: MySchema | string[]}
 
   ///////////////////////////////////////////////////////////////////////////
   // Generic
@@ -104,25 +103,25 @@ export interface MySchema {
   /**
    * Enumerates the values that this schema can be (e.g. {"type": "string", "enum": ["red", "green", "blue"]})
    */
-  'enum'?: any[];
+  'enum'?: any[]
   /**
    * The basic type of this schema, can be one of [string, number, object, array, boolean, null] or an array of
    * the acceptable types
    */
-  type?: string | string[] | Object;
+  type?: string | string[] | Object
 
-  format?: string;
+  format?: string
 
   ///////////////////////////////////////////////////////////////////////////
   // Combining Schemas
   ///////////////////////////////////////////////////////////////////////////
-  allOf?: MySchema[];
-  anyOf?: MySchema[];
-  oneOf?: MySchema[];
+  allOf?: MySchema[]
+  anyOf?: MySchema[]
+  oneOf?: MySchema[]
   /**
    * The entity being validated must not match this schema
    */
-  not?: MySchema;
+  not?: MySchema
 
   ///////////////////////////////////////////////////////////////////////////
   // Hyperfish Specific

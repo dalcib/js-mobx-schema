@@ -1,6 +1,6 @@
-import ClassDecoratorExample from "./index";
-import Model from './model';
-import { autorun, whyRun, isObservable } from 'mobx';
+import ClassDecoratorExample from './index'
+import Model from './model'
+import {autorun, whyRun, isObservable} from 'mobx'
 
 //const classDecoratorExample = new ClassDecoratorExample()
 const example = new ClassDecoratorExample()
@@ -55,17 +55,16 @@ describe('static decorator', () => {
   })
 })
 
-
 describe('Observable', () => {
   let count = 0
-  autorun(() => {count = count + 1; /*whyRun()*/ } )
+  autorun(() => {
+    count = count + 1 /*whyRun()*/
+  })
   example.name = 'Melina'
   example.name = 'Melina Bagolin'
   example.point = true
   //console.log('isObservablecc', isObservable(example.point))
   it('should run', () => {
     expect(count).toEqual(1)
-  });
-
-});
-
+  })
+})
