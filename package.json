@@ -19,9 +19,6 @@
     "init": "run-s init-*",
     "prettier": "prettier --write \"app/**.*(ts|tsx)\" --parser typescript --single-quote --bracket-spacing=false --no-semi"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "devDependencies": {
     "react-scripts": "",
     "tslib": "",
