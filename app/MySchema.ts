@@ -3,10 +3,10 @@
  * but further definitions (typically stored on the object in the 'definitions' key of the root) can simply be
  * something like:
  * {
- *     "type": "string"
+ *     "type": "string"    
  * }
  */
-import {MySchema} from './MySchema'
+import { MySchema } from './MySchema'
 
 export interface MySchema {
   $ref?: string
@@ -82,20 +82,20 @@ export interface MySchema {
   /**
    * Holds simple JSON Schema definitions for referencing from elsewhere
    */
-  definitions?: {[key: string]: MySchema}
+  definitions?: { [key: string]: MySchema }
   /**
    * The keys that can exist on the object with the json schema that should validate their value
    */
-  properties?: {[property: string]: MySchema}
+  properties?: { [property: string]: MySchema }
   /**
    * The key of this object is a regex for which properties the schema applies to
    */
-  patternProperties?: {[pattern: string]: MySchema}
+  patternProperties?: { [pattern: string]: MySchema }
   /**
    * If the key is present as a property then the string of properties must also be present.
    * If the value is a JSON Schema then it must also be valid for the object if the key is present.
    */
-  dependencies?: {[key: string]: MySchema | string[]}
+  dependencies?: { [key: string]: MySchema | string[] }
 
   ///////////////////////////////////////////////////////////////////////////
   // Generic
