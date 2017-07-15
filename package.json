@@ -1,6 +1,6 @@
 {
   "name": " ",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "",
   "private": true,
   "author": "Dalci de Jesus Bagolin",
@@ -50,7 +50,30 @@
     "transform": {
       ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
     },
+<<<<<<< HEAD
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx)$",
     "moduleFileExtensions": ["ts", "tsx", "js"]
+=======
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "rootDir": "app",
+    "globals": {
+      "__TS_CONFIG__": {
+        "module": "commonjs",
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "node",
+        "strict": true,
+        "noEmitHelpers": true,
+        "importHelpers": true
+      }
+    }
+>>>>>>> c2b49b77f731db5bd2bd6c2f90be453ad1f9595a
   }
 }
