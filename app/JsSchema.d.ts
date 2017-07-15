@@ -6,9 +6,9 @@
  *     "type": "string"
  * }
  */
-import {MySchema} from './MySchema'
+//import { JsSchema } from './JsSchema'
 
-export interface MySchema {
+export interface JsSchema {
   $ref?: string
 
   ///////////////////////////////////////////////////////////////////////////
@@ -66,8 +66,8 @@ export interface MySchema {
   ///////////////////////////////////////////////////////////////////////////
   // Array Validation
   ///////////////////////////////////////////////////////////////////////////
-  additionalItems?: boolean | MySchema
-  items?: MySchema | MySchema[]
+  additionalItems?: boolean | JsSchema
+  items?: JsSchema | JsSchema[]
   maxItems?: number | (() => number)
   minItems?: number | (() => number)
   uniqueItems?: boolean
@@ -78,24 +78,24 @@ export interface MySchema {
   maxProperties?: number
   minProperties?: number
   required?: string[] | boolean
-  additionalProperties?: boolean | MySchema
+  additionalProperties?: boolean | JsSchema
   /**
    * Holds simple JSON Schema definitions for referencing from elsewhere
    */
-  definitions?: {[key: string]: MySchema}
+  definitions?: { [key: string]: JsSchema }
   /**
    * The keys that can exist on the object with the json schema that should validate their value
    */
-  properties?: {[property: string]: MySchema}
+  properties?: { [property: string]: JsSchema }
   /**
    * The key of this object is a regex for which properties the schema applies to
    */
-  patternProperties?: {[pattern: string]: MySchema}
+  patternProperties?: { [pattern: string]: JsSchema }
   /**
    * If the key is present as a property then the string of properties must also be present.
    * If the value is a JSON Schema then it must also be valid for the object if the key is present.
    */
-  dependencies?: {[key: string]: MySchema | string[]}
+  dependencies?: { [key: string]: JsSchema | string[] }
 
   ///////////////////////////////////////////////////////////////////////////
   // Generic
@@ -108,20 +108,20 @@ export interface MySchema {
    * The basic type of this schema, can be one of [string, number, object, array, boolean, null] or an array of
    * the acceptable types
    */
-  type?: string | string[] | Object
+  type?: string | string[] | object
 
   format?: string
 
   ///////////////////////////////////////////////////////////////////////////
   // Combining Schemas
   ///////////////////////////////////////////////////////////////////////////
-  allOf?: MySchema[]
-  anyOf?: MySchema[]
-  oneOf?: MySchema[]
+  allOf?: JsSchema[]
+  anyOf?: JsSchema[]
+  oneOf?: JsSchema[]
   /**
    * The entity being validated must not match this schema
    */
-  not?: MySchema
+  not?: JsSchema
 
   ///////////////////////////////////////////////////////////////////////////
   // Hyperfish Specific
@@ -130,5 +130,5 @@ export interface MySchema {
   component?: string;
   valueSource?: string;
   identifiers?: string[];
-  links?: (MySchema & { rel: string, href: string })[];*/
+  links?: (JsSchema & { rel: string, href: string })[];*/
 }

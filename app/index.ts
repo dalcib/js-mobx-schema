@@ -1,35 +1,34 @@
-import {schema} from './decorator'
-import {JsonSchema} from './JsonSchema'
+import { schema } from './decorator'
+import { JsonSchema } from './JsonSchema'
 import 'reflect-metadata'
-import {autorun, observable} from 'mobx'
+import { autorun, observable } from 'mobx'
 
 class ClassDecoratorExample {
   static schema: JsonSchema = {
     description: 'teste',
     properties: {
-      name: {default: 'fghkkk'}
-    }
+      name: { default: 'fghkkk' },
+    },
   }
 
-  @schema({title: 'Name', required: true})
+  @schema({ title: 'Name', required: true })
   //@Reflect.metadata("design:type", 'string')
   name?: string //= undefined
 
   //@observable
   point: boolean = false
 
-  @schema()
-  age: number = 16
+  @schema() age: number = 16
 
-  @schema({maximum: 23})
+  @schema({ maximum: 23 })
   get ages(): number {
     return this.age * 2
   }
 
-  @schema({format: 'date'})
+  @schema({ format: 'date' })
   date: string //=  Date().toString()
 
-  @schema({type: 'array'})
+  @schema({ type: 'array' })
   list: string[]
 
   getEmpty() {

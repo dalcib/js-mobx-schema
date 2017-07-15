@@ -1,7 +1,7 @@
 import 'reflect-metadata'
-import {JsonSchema} from './JsonSchema'
-import {MySchema} from './MySchema'
-import {extendObservable} from 'mobx'
+import { JsonSchema } from './JsonSchema'
+import { JsSchema } from './JsSchema'
+import { extendObservable } from 'mobx'
 import convertSchema from './convertSchema'
 
 const baseSchema: JsonSchema = {
@@ -11,42 +11,36 @@ const baseSchema: JsonSchema = {
   required: [],
   id: '',
   title: undefined,
-  description: 'undefined'
+  description: 'undefined',
 }
 
-export function schema(mySchema: MySchema = {}): PropertyDecorator {
+export function schema(JsSchema: JsSchema = {}): PropertyDecorator {
   return (target: any, propertyKey: string): void => {
-    const schema = convertSchema(mySchema)
-    let jsonSchema = {...baseSchema, ...target.constructor.schema}
+    const schema = convertSchema(JsSchema)
+    const jsonSchema = { ...baseSchema, ...target.constructor.schema }
     jsonSchema.title = target.constructor.name.toString()
     jsonSchema.id = target.constructor.name.toString()
 
     if (schema.required) {
-      if (!jsonSchema.required) {
-        jsonSchema.required = []
-      }
       jsonSchema.required.push(propertyKey)
       delete schema.required
     }
 
-    if (!jsonSchema.properties) {
-      jsonSchema.properties = {}
-    }
     jsonSchema.properties[propertyKey] = {
       ...jsonSchema.properties[propertyKey],
-      ...schema
+      ...schema,
     }
 
-    let get: boolean = false
+    let isGet: boolean = false
     const propertyDefinition = Object.getOwnPropertyDescriptor(
       target,
       propertyKey
     )
     if (propertyDefinition) {
-      get = !!propertyDefinition.get
+      isGet = !!propertyDefinition.get
     }
     const newInstance = new target.constructor()
-    if (newInstance[propertyKey] && !get) {
+    if (newInstance[propertyKey] && !isGet) {
       jsonSchema.properties[propertyKey].default = newInstance[propertyKey]
     }
 

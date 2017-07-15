@@ -1,9 +1,11 @@
-import {JsonSchema} from './JsonSchema'
-import {MySchema} from './MySchema'
+import { JsonSchema } from './JsonSchema'
+import { JsSchema } from './JsSchema'
 
-export default function convert(mySchema: MySchema): JsonSchema {
-  let schema = {...mySchema}
-  let newSchema: JsonSchema = {}
+//JsSchema allows to use 'string' instead '"string"' and functions instead values
+
+export default function convert(mySchema: JsSchema): JsonSchema {
+  const schema = { ...mySchema }
+  const newSchema: JsonSchema = {}
   Object.keys(schema).map((key: string) => {
     if (
       Object.prototype.toString.call((schema as any)[key]) ===
@@ -19,13 +21,13 @@ export default function convert(mySchema: MySchema): JsonSchema {
     }
     switch (key) {
       case 'properties':
-        let properties = {}
-        Object.keys(schema.properties).map(subKey => {
-          ;(properties as any)[subKey] = convert(
-            (schema.properties as any)[subKey]
-          )
-        })
-        newSchema.properties = properties
+        const properties: any = {}
+        if (schema.properties) {
+          Object.keys(schema.properties).map(subKey => {
+            properties[subKey] = convert((schema.properties as any)[subKey])
+          })
+          newSchema.properties = properties
+        }
         break
       case 'items':
         if (Object.prototype.toString.call(schema.items) === '[object Array]') {
@@ -36,7 +38,7 @@ export default function convert(mySchema: MySchema): JsonSchema {
           })
         } else {
           if (schema.items) {
-            newSchema.items = convert(schema.items)
+            newSchema.items = convert(schema.items as any)
           }
         }
         break
@@ -55,7 +57,7 @@ export default function convert(mySchema: MySchema): JsonSchema {
         }
         break
       default:
-        (newSchema as any)[key] = (schema as any)[key]
+        ;(newSchema as any)[key] = (schema as any)[key]
         break
     }
   })
