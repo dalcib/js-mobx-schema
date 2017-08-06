@@ -1,10 +1,10 @@
 import ClassDecoratorExample from './index'
 import Model from './model'
-import {autorun, whyRun, isObservable} from 'mobx'
+import { autorun, whyRun, isObservable } from 'mobx'
 
 //const classDecoratorExample = new ClassDecoratorExample()
 const example = new ClassDecoratorExample()
-const model = new Model(ClassDecoratorExample)
+//const model = new Model(ClassDecoratorExample)
 
 /*const schema = {
   description: 'teste',
@@ -43,7 +43,7 @@ describe('non-static decorator', () => {
   })
 })*/
 
-describe('model', () => {
+/*describe('model', () => {
   it('instanciate', () => {
     expect(model).toMatchSnapshot()
   })
@@ -58,7 +58,7 @@ describe('static decorator', () => {
 describe('Observable', () => {
   let count = 0
   autorun(() => {
-    count = count + 1 /*whyRun()*/
+    count = count + 1 //whyRun()
   })
   example.name = 'Melina'
   example.name = 'Melina Bagolin'
@@ -68,3 +68,4 @@ describe('Observable', () => {
     expect(count).toEqual(1)
   })
 })
+*/

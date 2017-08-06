@@ -1,15 +1,26 @@
-import {autorun, isObservable, whyRun, observe, useStrict, reaction} from 'mobx'
+import {
+  autorun,
+  isObservable,
+  whyRun,
+  observe,
+  useStrict,
+  reaction,
+} from 'mobx'
 import ClassDecoratorExample from './index'
 import Model from './model'
 
-const model = new Model(ClassDecoratorExample)
+describe('test', () => {
+  it('test', () => {})
+})
+
+/*const model = new Model(ClassDecoratorExample)
 let count = 0
 
 beforeEach(() => {
   autorun(() => {
-    let name: any = model.data.name
-    let age: any = model.data.age
-    count = count + 1 /* whyRun(), console.log('a',count)}*/
+    const name: any = model.data.name
+    const age: any = model.data.age
+    count = count + 1 //whyRun(), console.log('a',count)}
   })
   //model.data.name = 'Dalci B'
   //model.data.age = 48
@@ -19,7 +30,8 @@ beforeEach(() => {
 
 describe('Model', () => {
   it('should autorun', () => {
-    // autorun(() => {count = count + 1 /*whyRun(), console.log('b',count, model.data.name)*/} )
+    // autorun(() => {count = count + 1 //whyRun(), console.log('b',count, model.data.name)
+  } )
     model.data.name = 'Dalci Bagol'
     model.data.age = 49
     expect(count).toEqual(3)
@@ -47,13 +59,13 @@ describe('modelStore', () => {
 
   it('makes todos observable', () => {
     modelStore = new Model(ClassDecoratorExample)
-    modelStore.data
+    //modelStore.data
 
     let isObserved = false
-    /*const observation = observe(modelStore, 'data', (changes) => {
-      isObserved = true;
-    });*/
-    //console.log('isObservable', isObservable(modelStore), isObservable(modelStore.data)/*, isObservable(modelStore.data.name)*/);
+    //const observation = observe(modelStore, 'data', (changes) => {
+    //  isObserved = true;
+    //});
+    //console.log('isObservable', isObservable(modelStore), isObservable(modelStore.data), isObservable(modelStore.data.name));
 
     reaction(
       () => modelStore.data.name,
@@ -76,3 +88,4 @@ describe('validate', () => {
     console.log(model.errors, model.errorsMessages, model.errorsText)
   })
 })
+*/
