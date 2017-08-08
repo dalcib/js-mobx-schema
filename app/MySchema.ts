@@ -3,7 +3,7 @@
  * but further definitions (typically stored on the object in the 'definitions' key of the root) can simply be
  * something like:
  * {
- *     "type": "string"    
+ *     "type": "string"
  * }
  */
 import { MySchema } from './MySchema'
@@ -108,7 +108,7 @@ export interface MySchema {
    * The basic type of this schema, can be one of [string, number, object, array, boolean, null] or an array of
    * the acceptable types
    */
-  type?: string | string[] | Object
+  type?: string | string[] | object
 
   format?: string
 

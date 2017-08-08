@@ -17,7 +17,8 @@
     "init-types": "npm link @types/react @types/react-dom @types/jest @types/node",
     "install-eslint": "npm install -g eslint-config-react-app eslint babel-eslint eslint-plugin-react eslint-plugin-import eslint-plugin-jsx-a11y eslint-plugin-flowtype eslint-plugin-import",
     "init": "run-s init-*",
-    "prettier": "prettier --write \"app/**.*(ts|tsx)\" --parser typescript --single-quote --bracket-spacing=false --no-semi"
+    "prettier": "prettier --write \"app/**.*(ts|tsx)\" --parser typescript --single-quote --bracket-spacing=false --no-semi",
+    "xxx": "echo %npm_package_version%"
   },
   "devDependencies": {
     "react-scripts": "",
@@ -45,24 +46,7 @@
       ".(ts|tsx)": "<rootDir>/../node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "rootDir": "app",
-    "globals": {
-      "__TS_CONFIG__": {
-        "module": "commonjs",
-        "jsx": "react",
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true,
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "node",
-        "strict": true,
-        "noEmitHelpers": true,
-        "importHelpers": true
-      }
-    }
+    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "rootDir": "app"
   }
 }

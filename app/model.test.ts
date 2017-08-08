@@ -1,5 +1,12 @@
-import {autorun, isObservable, whyRun, observe, useStrict, reaction} from 'mobx'
-import ClassDecoratorExample from './index'
+import {
+  autorun,
+  isObservable,
+  observe,
+  reaction,
+  useStrict,
+  whyRun,
+} from 'mobx'
+import ClassDecoratorExample from './example'
 import Model from './model'
 
 const model = new Model(ClassDecoratorExample)
@@ -7,14 +14,10 @@ let count = 0
 
 beforeEach(() => {
   autorun(() => {
-    let name: any = model.data.name
-    let age: any = model.data.age
+    const name: string | undefined = model.data.name
+    const age: number = model.data.age
     count = count + 1 /* whyRun(), console.log('a',count)}*/
   })
-  //model.data.name = 'Dalci B'
-  //model.data.age = 48
-  //model.data = {name: 'Dacli'}
-  //console.log('XXXXXXXXXX',model.data.get())
 })
 
 describe('Model', () => {
@@ -43,11 +46,10 @@ describe('Model', () => {
 })
 
 describe('modelStore', () => {
-  let modelStore: Model
+  let modelStore: Model<ClassDecoratorExample>
 
   it('makes todos observable', () => {
     modelStore = new Model(ClassDecoratorExample)
-    modelStore.data
 
     let isObserved = false
     /*const observation = observe(modelStore, 'data', (changes) => {
@@ -70,9 +72,23 @@ describe('modelStore', () => {
 
 describe('validate', () => {
   it('should error', () => {
-    model.data.name = {}
-    model.handleChange('name', {sdfsfsd: 234})
+    model.data.name = 'asdas'
+    model.handleChange('name', { sdfsfsd: 234 })
     expect(model.errors).toBeTruthy()
     console.log(model.errors, model.errorsMessages, model.errorsText)
+  })
+
+  it('should set errors', () => {
+    expect(model.errors && model.errors.length).toEqual(3)
+    model.data.name = 'dalci'
+    expect(model.errors && model.errors.length).toEqual(2)
+    model.data.age = 48
+    expect(model.errors && model.errors.length).toEqual(2)
+    model.data.age = 20
+    expect(model.errors && model.errors.length).toEqual(1)
+    model.data.date = 'xxx'
+    expect(model.errors && model.errors.length).toEqual(2)
+    model.data.lastName = 'asdfgg'
+    expect(model.errors && model.errors.length).toEqual(1)
   })
 })

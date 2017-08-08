@@ -1,21 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5", 
-    "module": "commonjs", 
+    "target": "es5",
+    "module": "commonjs",
     "outDir": "src",
     "rootDir": "app",
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "jsx": "react-native",
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
     "moduleResolution": "node",
     "noEmitHelpers": true,
     "importHelpers": true,
     "strict": true,
     "watch": true
   },
-  "exclude": [
-      "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

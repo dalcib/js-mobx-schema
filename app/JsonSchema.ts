@@ -84,25 +84,25 @@ export interface JsonSchema {
   ///////////////////////////////////////////////////////////////////////////
   maxProperties?: number
   minProperties?: number
-  required?: string[]
+  required?: string[] | boolean
   additionalProperties?: boolean | JsonSchema
   /**
    * Holds simple JSON Schema definitions for referencing from elsewhere
    */
-  definitions?: {[key: string]: JsonSchema}
+  definitions?: { [key: string]: JsonSchema }
   /**
    * The keys that can exist on the object with the json schema that should validate their value
    */
-  properties?: {[property: string]: JsonSchema}
+  properties?: { [property: string]: JsonSchema }
   /**
    * The key of this object is a regex for which properties the schema applies to
    */
-  patternProperties?: {[pattern: string]: JsonSchema}
+  patternProperties?: { [pattern: string]: JsonSchema }
   /**
    * If the key is present as a property then the string of properties must also be present.
    * If the value is a JSON Schema then it must also be valid for the object if the key is present.
    */
-  dependencies?: {[key: string]: JsonSchema | string[]}
+  dependencies?: { [key: string]: JsonSchema | string[] }
 
   ///////////////////////////////////////////////////////////////////////////
   // Generic
@@ -117,7 +117,22 @@ export interface JsonSchema {
    */
   type?: SimpleType | SimpleType[]
 
-  format?: string
+  format?:
+    | 'date'
+    | 'time'
+    | 'date-time'
+    | 'uri'
+    | 'url'
+    | 'url-template'
+    | 'email'
+    | 'hostname'
+    | 'ipv4'
+    | 'ipv6'
+    | 'regex'
+    | 'uuid'
+    | 'json-pointer'
+    | 'relative-json-pointer'
+    | string
 
   ///////////////////////////////////////////////////////////////////////////
   // Combining Schemas

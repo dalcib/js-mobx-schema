@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`class instanciate 1`] = `
+ClassDecoratorExample {
+  "age": 16,
+  "date": "2017-08-08",
+  "point": false,
+}
+`;
+
+exports[`schema snapshot 1`] = `
+Object {
+  "$schema": "http://json-schema.org/schema#",
+  "description": "teste",
+  "id": "ClassDecoratorExample",
+  "properties": Object {
+    "age": Object {
+      "maximum": 23,
+      "type": "number",
+    },
+    "ages": Object {
+      "type": "number",
+    },
+    "cars": Object {
+      "minimum": 4,
+      "type": "integer",
+    },
+    "date": Object {
+      "format": "date",
+      "type": "string",
+    },
+    "lastName": Object {
+      "minLength": 5,
+      "type": "string",
+    },
+    "list": Object {
+      "type": "array",
+    },
+    "name": Object {
+      "default": "fghkkk",
+      "title": "Name",
+      "type": "string",
+    },
+  },
+  "required": Array [
+    "lastName",
+  ],
+  "title": "ClassDecoratorExample",
+  "type": "object",
+}
+`;

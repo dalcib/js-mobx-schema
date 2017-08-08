@@ -1,9 +1,9 @@
-import {JsonSchema} from './JsonSchema'
-import {MySchema} from './MySchema'
+import { JsonSchema } from './JsonSchema'
+import { MySchema } from './MySchema'
 
 export default function convert(mySchema: MySchema): JsonSchema {
-  let schema = {...mySchema}
-  let newSchema: JsonSchema = {}
+  const schema = { ...mySchema }
+  const newSchema: JsonSchema = {}
   Object.keys(schema).map((key: string) => {
     if (
       Object.prototype.toString.call((schema as any)[key]) ===
@@ -15,11 +15,12 @@ export default function convert(mySchema: MySchema): JsonSchema {
         (schema as any)[key] !== Object)
     ) {
       //console.log((schema as any)[key],typeof (schema as any)[key]);
+      // tslint:disable-next-line:whitespace
       ;(schema as any)[key] = (schema as any)[key]()
     }
     switch (key) {
       case 'properties':
-        let properties = {}
+        const properties = {}
         Object.keys(schema.properties).map(subKey => {
           ;(properties as any)[subKey] = convert(
             (schema.properties as any)[subKey]
@@ -55,7 +56,7 @@ export default function convert(mySchema: MySchema): JsonSchema {
         }
         break
       default:
-        (newSchema as any)[key] = (schema as any)[key]
+        ;(newSchema as any)[key] = (schema as any)[key]
         break
     }
   })

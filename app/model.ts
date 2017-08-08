@@ -1,22 +1,23 @@
-import {observable, extendObservable, computed} from 'mobx'
-import {JsonSchema} from './JsonSchema'
-import Ajv from 'ajv'
+// tslint:disable-next-line:ordered-imports
+//import Ajv from 'ajv'
+import * as Ajv from 'ajv'
+import { autorun, computed, extendObservable, observable, toJS } from 'mobx'
+import { JsonSchema } from './JsonSchema'
 
 const ajv = new Ajv({
   allErrors: true,
-  v5: true,
   useDefaults: true,
-  verbose: true
+  verbose: true,
 })
 
-export default class Model {
+interface NoParamConstructor<T> {
   schema: JsonSchema
-  @observable data: any
-  validate: Ajv.ValidateFunction
-  @computed
-  get valid(): boolean | Ajv.Thenable<boolean> {
-    return this.validate(this.data)
-  }
+  new (): T
+}
+
+export default class Model<T> {
+  @observable data: T
+  @observable isValid: boolean | Ajv.Thenable<boolean>
   @observable errors: Ajv.ErrorObject[] | undefined
   @computed
   get errorsText() {
@@ -25,45 +26,43 @@ export default class Model {
   @computed
   get errorsMessages() {
     if (this.errors) {
-      this.errors.map(error => {
-        return {[error.dataPath]: error.keyword + error.message}
+      this.errors.map((error: any) => {
+        return { [error.dataPath]: error.keyword + error.message }
       })
     } else {
-      return {error: 'sdfsdf'}
+      return { error: 'sdfsdf' }
     }
   }
-  //SchemaClass: any
-  constructor(SchemaClass: any) {
-    const instanceSchema = new SchemaClass()
-    this.schema = SchemaClass.schema
-    this.validate = ajv.compile(this.schema)
-    const properties = this.schema.properties
+
+  constructor(SchemaClass: NoParamConstructor<T>) {
+    const instance: T | any = new SchemaClass()
+    const properties = SchemaClass.schema.properties
     Object.keys(properties).forEach((key: string) => {
       const defaultValue: any = (properties as any)[key].default
-      if (!instanceSchema[key]) {
+      if (!instance[key]) {
         if ((properties as any)[key].type === 'array') {
-          instanceSchema[key] = []
+          instance[key] = []
         } else {
-          instanceSchema[key] = defaultValue
+          if (!instance[key]) {
+            instance[key] = defaultValue
+          }
         }
       }
     })
-    const data = {}
-    Object.keys(instanceSchema).map(field => {
-      extendObservable(data, {[field]: instanceSchema[field]})
+
+    this.data = extendObservable(instance, instance)
+    const validate: Ajv.ValidateFunction = ajv.compile(SchemaClass.schema)
+    autorun(() => {
+      this.isValid = validate(toJS(this.data))
+      this.errors = validate.errors
     })
-    this.data = data
-    this.validate(this.data)
-    this.errors = this.validate.errors
   }
 
   toJS() {
-    return JSON.stringify(this)
+    return toJS(this)
   }
 
-  handleChange = (field: string, value: any) => {
-    this.validate(this.data)
-    this.errors = this.validate.errors
+  handleChange = (field: keyof T, value: any) => {
     this.data[field] = value
   }
 }
