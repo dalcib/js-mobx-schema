@@ -5,6 +5,7 @@ import {
   observe,
   useStrict,
   reaction,
+  toJS,
 } from 'mobx'
 import ClassDecoratorExample from './index'
 import Model from './model'
@@ -13,10 +14,10 @@ describe('test', () => {
   it('test', () => {})
 })
 
-/*const model = new Model(ClassDecoratorExample)
+const model = new Model(ClassDecoratorExample)
 let count = 0
 
-beforeEach(() => {
+/*beforeEach(() => {
   autorun(() => {
     const name: any = model.data.name
     const age: any = model.data.age
@@ -52,7 +53,7 @@ describe('Model', () => {
     expect(value.oldValue).toEqual('Dalci Bagol')
     expect(value.newValue).toEqual('abcd')
   })
-})
+})*/
 
 describe('modelStore', () => {
   let modelStore: Model
@@ -83,9 +84,18 @@ describe('modelStore', () => {
 describe('validate', () => {
   it('should error', () => {
     model.data.name = {}
-    model.handleChange('name', {sdfsfsd: 234})
+    model.handleChange('name', { sdfsfsd: 234 })
     expect(model.errors).toBeTruthy()
-    console.log(model.errors, model.errorsMessages, model.errorsText)
+    console.log(
+      'aaaaaaaaaaa',
+      model.errors.toString(),
+      toJS(model.errors),
+      'bb',
+      model.errorsMessages,
+      'cc',
+      model.errorsText,
+      model.data,
+      model.toJS()
+    )
   })
 })
-*/

@@ -14,32 +14,6 @@ const baseSchema: JsonSchema = {
   description: 'undefined',
 }
 
-interface ArgsPropertyDecorator {
-  target: any
-  propertyKey?: string
-  descriptor?: any
-}
-
-//declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
-//declare type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
-//declare type MethodDecorator = <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
-
-export function schemax(
-  JsSchema: JsSchema = {}
-): PropertyDecorator | ClassDecorator {
-  return function(this: any, ...args: any[]) {
-    switch (args.length) {
-      case 1:
-        return schemaClass.apply(this, args)
-      case 2:
-        return schemaProperty.apply(this, args)
-
-      default:
-        throw new Error('Decorators are not valid here!')
-    }
-  }
-}
-
 export function schema(JsSchema: JsSchema = {}) {
   return (target: any, propertyKey?: string, descriptor?: any): void | any => {
     //console.log('AAAAAAAAAAA', ...args, JsSchema, args.length, 'length')
@@ -48,39 +22,8 @@ export function schema(JsSchema: JsSchema = {}) {
     } else {
       schemaClass(target, JsSchema)
     }
-
-    /*  switch (args.length) {
-      case 1:
-        console.log('Class', args)
-        //return schemaClass.apply(this, args)
-        schemaClass(args[0])
-        break
-      case 3:
-        console.log('Property', args)
-        schemaProperty(target, propertyKey, descriptor, JsSchema)
-        break */
-    //return schemaProperty.apply(this, args)
-    /* case 3:
-      if(typeof args[2] === "number") {
-        return logParameter.apply(this, args);
-      }
-      return logMethod.apply(this, args); */
-    // tslint:disable-next-line:no-switch-case-fall-through
-    //default:
-    //console.log()
-    //throw new Error('Decorators are not valid here!' + args)
-    //}
   }
 }
-
-/* export function schema(...args: any[]) {
-  if (args.length === 1) {
-    console.log('WWWWWWWWWWWW', args[0])
-    return schemaClass(args[0])
-  } else {
-    return schemaProperty(...args)
-  }
-} */
 
 function schemaProperty<T>(
   target: any,
@@ -88,7 +31,7 @@ function schemaProperty<T>(
   descriptor: TypedPropertyDescriptor<T>,
   JsSchema: JsSchema
 ): TypedPropertyDescriptor<T> | void {
-  console.log('PPPPPProp', target, propertyKey, descriptor, JsSchema)
+  //console.log('PPPPPProp', target, propertyKey, descriptor, JsSchema)
 
   const schema = convertSchema(JsSchema)
   const jsonSchema = { ...baseSchema, ...target.constructor.schema }
@@ -131,41 +74,65 @@ function schemaProperty<T>(
 
   target.constructor.schema = jsonSchema
 
-  console.log(
+  /*  console.log(
     'LLLLL',
     propertyKey,
     target[propertyKey],
     newInstance[propertyKey]
     //target.constructor.schema
-  )
+  ) */
 }
-
-interface Target extends Function {
+// tslint:disable-next-line:interface-over-type-literal
+type NewClass = { new (...args: any[]): {} }
+interface Target extends NewClass {
   schema: any
   name: string
 }
 
-// tslint:disable-next-line:ban-types
+/* export function classDecorator<T extends {new(...args:any[]):{}}>(constructor:T) {
+  class NewTarget extends constructor implements Target {
+    speaker: string = 'Ragularuban'
+    extra = 'Tadah!'
+  }
+} */
+
 export function schemaClass<TFunction extends Target>(
   target: TFunction,
   JsSchema: JsSchema
-  //propertyKey?: string,
-  //defaultValue?: any
-): TFunction | void {
+): TFunction {
   // save a reference to the original constructor
+
+  class NewTarget extends target implements Target {
+    constructor() {
+      super()
+      // tslint:disable-next-line:no-string-literal
+      //this['teste']: any = undefined
+      //this.testex = undefined
+      extendObservable(this, {
+        newAge: 26,
+      })
+    }
+  }
+
   const original = target
 
   const schema = original.schema
-  console.log(
+  /* console.log(
     'DDDDDDDDDD',
     //JSON.stringify(target.constructor.schema),
     target.schema,
     target
-  )
+  ) */
 
-  // a utility function to generate instances of a class
   function construct(constructor: any, args: any[]) {
     const c: any = function(this: any) {
+      // tslint:disable-next-line:no-string-literal
+      this['teste'] = undefined
+      this.testex = undefined
+      extendObservable(this, {
+        newAge: 26,
+      })
+
       return constructor.apply(this, args)
     }
     c.prototype = constructor.prototype
@@ -173,8 +140,13 @@ export function schemaClass<TFunction extends Target>(
   }
 
   // the new constructor behaviour
-  const f: any = (...args: any[]) => {
+  function f(this: any, ...args: any[]) {
     console.log('New: ' + original.name)
+    this['teste'] = undefined
+    this.testex = undefined
+    extendObservable(this, {
+      newAge: 26,
+    })
     return construct(original, args)
   }
 
@@ -182,33 +154,7 @@ export function schemaClass<TFunction extends Target>(
   f.prototype = original.prototype
   f.schema = schema
 
-  // return new constructor (will override original)
-  return f
-
-  /*
-  // save a reference to the original constructor
-  const original = target
-  const schema = target.schema
-
-  // the new constructor behaviour
-  const f: any = function(this: any, ...args: any[]) {
-     if (propertyKey) {
-      this[propertyKey] = defaultValue || undefined
-      console.log('New: ', propertyKey, defaultValue, this[propertyKey])
-    }
-    console.log('New: ' + original.name, original, typeof original)
-    //return original.apply(this, args)
-  }
-
-  // copy prototype so intanceof operator still works
-  f.prototype = original.prototype
-  f.schema = schema
-
-
-  // return new constructor (will override original)
-  return f
-
-  */
+  return NewTarget
 }
 
 /*
@@ -230,8 +176,6 @@ export  function schema(jsonSchema: any) {
     }
 }
 
-declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
-declare type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
 
 function logType(target : any, key : string) {
       var t = Reflect.getMetadata("design:type", target, key);
@@ -246,12 +190,6 @@ function logType(target : any, key : string) {
         }
     }
 */
-
-/*    schema.properties[propertyKey] = {
-                ...schema.properties[propertyKey],
-                ...{type: t.name.toLowerCase()}
-            }
-        }*/
 
 function enumerable(value: boolean) {
   return (target: any, propertyKey: string) => {

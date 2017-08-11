@@ -1,24 +1,24 @@
 import ClassDecoratorExample from './index'
-import Model from './model'
+//import Model from './model'
 import { autorun, whyRun, isObservable } from 'mobx'
 
 //const classDecoratorExample = new ClassDecoratorExample()
 const example = new ClassDecoratorExample()
 //const model = new Model(ClassDecoratorExample)
 
-/*const schema = {
+const schema = {
   description: 'teste',
   properties: {
     name: { type: 'string', title: 'Name', default: 'fghk' },
     age: { type: 'Numberd', default: 15 },
     ages: {
-        maximum: 23,
+      maximum: 23,
     },
-  date: {
-   format: "date",
-    }
-  }
-}*/
+    date: {
+      format: 'date',
+    },
+  },
+}
 
 describe('non-static decorator', () => {
   it('static', () => {
@@ -26,14 +26,14 @@ describe('non-static decorator', () => {
   })
 })
 
-/*describe('Get empty object:', () => {
+/* describe('Get empty object:', () => {
   it('getEmpty()', () => {
     //console.log(example.schema, example.constructor.prototype.schema, example.constructor.schema);
     expect(example.getEmpty()).toMatchSnapshot()
-    model.getEmpty()
-    expect(model.data).toEqual(example.getEmpty())
+    //model.getEmpty()
+    //expect(model.data).toEqual(example.getEmpty())
   })
-})*/
+}) */
 
 /*describe('Get empty model:', () => {
   it('getEmpty()', () => {
@@ -43,19 +43,19 @@ describe('non-static decorator', () => {
   })
 })*/
 
-/*describe('model', () => {
+describe('model', () => {
   it('instanciate', () => {
-    expect(model).toMatchSnapshot()
+    expect(example).toMatchSnapshot()
   })
 })
 
 describe('static decorator', () => {
   it('static', () => {
-    expect(model.schema).toMatchSnapshot()
+    expect(ClassDecoratorExample.schema).toMatchSnapshot()
   })
 })
 
-describe('Observable', () => {
+/*describe('Observable', () => {
   let count = 0
   autorun(() => {
     count = count + 1 //whyRun()

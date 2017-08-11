@@ -3,7 +3,7 @@ import { JsonSchema } from './JsonSchema'
 import 'reflect-metadata'
 import { autorun, observable } from 'mobx'
 
-@schema()
+//@schema()
 class ClassDecoratorExample {
   static schema: JsonSchema = {
     description: 'teste',
@@ -19,24 +19,23 @@ class ClassDecoratorExample {
   //@observable
   point: boolean = false
 
-  //@schema()
-  age: number = 16
+  @schema() age: number = 16
 
-  //@schema({ default: 26 })
+  @schema({ default: 27 })
   newAge: number
 
-  //@schema({ maximum: 23 })
+  @schema({ maximum: 23 })
   get ages(): number {
     return this.age * 2
   }
 
-  //@schema({ format: 'date' })
+  @schema({ format: 'date' })
   date: string //=  Date().toString()
 
-  //@schema({ type: 'array' })
+  @schema({ type: 'array' })
   list: string[]
 
-  getEmpty() {
+  /* getEmpty() {
     const properties = ClassDecoratorExample.schema.properties
     const keys = Object.keys(properties)
     const empty = new ClassDecoratorExample()
@@ -47,7 +46,7 @@ class ClassDecoratorExample {
       }
     })
     return empty
-  }
+  } */
 }
 
 ///ClassDecoratorExample.schema = {...ClassDecoratorExample.schema, ...{properties: {date: {format: 'date'}}}}
