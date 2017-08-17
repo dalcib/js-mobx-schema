@@ -5,6 +5,7 @@ import {
   reaction,
   useStrict,
   whyRun,
+  toJS,
 } from 'mobx'
 import ClassDecoratorExample from './example'
 import Model from './model'
@@ -75,19 +76,26 @@ describe('validate', () => {
     model.data.name = 'asdas'
     model.handleChange('name', { sdfsfsd: 234 })
     expect(model.errors).toBeTruthy()
-    console.log(model.errors, model.errorsMessages, model.errorsText)
+    /* console.log(
+       model.errorsMessages,
+      model.errorsText
+    ) */
   })
 
   it('should set errors', () => {
-    expect(model.errors && model.errors.length).toEqual(3)
+    expect(model.errors && model.errors.length).toEqual(4)
     model.data.name = 'dalci'
+    expect(model.errors && model.errors.length).toEqual(3)
+    model.data.firstName = 'dalcib'
     expect(model.errors && model.errors.length).toEqual(2)
-    model.data.age = 48
-    expect(model.errors && model.errors.length).toEqual(2)
-    model.data.age = 20
+    model.data.lastName = 'dalcib'
     expect(model.errors && model.errors.length).toEqual(1)
+    model.data.age = 48
+    expect(model.errors && model.errors.length).toEqual(1)
+    model.data.age = 20
+    expect(model.errors && model.errors.length).toEqual(null)
     model.data.date = 'xxx'
-    expect(model.errors && model.errors.length).toEqual(2)
+    expect(model.errors && model.errors.length).toEqual(1)
     model.data.lastName = 'asdfgg'
     expect(model.errors && model.errors.length).toEqual(1)
   })

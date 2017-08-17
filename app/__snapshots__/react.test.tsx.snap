@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`component test renderer 1`] = `
+<div>
+  <div>
+    <input
+      onChange={[Function]}
+      value="fghkkk"
+    />
+    {"firstName":"is a required property","lastName":"is a required property"}
+    data.firstName is a required property, data.lastName is a required property
+  </div>
+</div>
+`;
+
+exports[`component test renderer 2`] = `
+<div>
+  <div>
+    <input
+      onChange={[Function]}
+      value="aaaaa"
+    />
+    {"firstName":"is a required property","lastName":"is a required property"}
+    data.firstName is a required property, data.lastName is a required property
+  </div>
+</div>
+`;
+
+exports[`component test renderer 3`] = `
+<div>
+  <div>
+    <input
+      onChange={[Function]}
+      value="aaaaa"
+    />
+    {"firstName":"should NOT be shorter than 5 characters","lastName":"is a required property"}
+    data.firstName should NOT be shorter than 5 characters, data.lastName is a required property
+  </div>
+</div>
+`;
+
+exports[`component test renderer 4`] = `
+<div>
+  <div>
+    <input
+      onChange={[Function]}
+      value="aaaaa"
+    />
+    {"lastName":"is a required property"}
+    data.lastName is a required property
+  </div>
+</div>
+`;

@@ -1,6 +1,14 @@
 import { schema } from './decorator'
 import { JsonSchema } from './JsonSchema'
 
+class Project {
+  static schema: JsonSchema = { id: 'Project' }
+  @schema({ required: true })
+  id: number
+  @schema() owner: string
+  @schema() goal: string
+}
+
 class ClassDecoratorExample {
   static schema: JsonSchema = {
     description: 'teste',
@@ -11,6 +19,9 @@ class ClassDecoratorExample {
 
   @schema({ title: 'Name' })
   name?: string
+
+  @schema({ required: true, minLength: 5 })
+  firstName: string
 
   @schema({ required: true, minLength: 5 })
   lastName: string
@@ -29,10 +40,12 @@ class ClassDecoratorExample {
   cars: number
 
   @schema({ format: 'date' })
-  date: string = new Date().toJSON().substr(0, 10)
+  date: string //= new Date().toJSON().substr(0, 10)
 
   @schema({ type: 'array' /*, items: [{ type: 'string' }]*/ })
   list: string[]
+
+  @schema(Project.schema) project = new Project()
 }
 
 const example = new ClassDecoratorExample()
@@ -46,11 +59,25 @@ export const classSchema = {
     ages: { type: 'number' },
     cars: { minimum: 4, type: 'integer' },
     date: { format: 'date', type: 'string' },
+    firstName: { minLength: 5, type: 'string' },
     lastName: { minLength: 5, type: 'string' },
     list: { type: 'array' },
     name: { default: 'fghkkk', title: 'Name', type: 'string' },
+    project: {
+      $schema: 'http://json-schema.org/schema#',
+      description: '',
+      id: 'Project',
+      properties: {
+        goal: { type: 'string' },
+        id: { type: 'number' },
+        owner: { type: 'string' },
+      },
+      required: ['id'],
+      title: 'Project',
+      type: 'object',
+    },
   },
-  required: ['lastName'],
+  required: ['firstName', 'lastName'],
   title: 'ClassDecoratorExample',
   type: 'object',
 }

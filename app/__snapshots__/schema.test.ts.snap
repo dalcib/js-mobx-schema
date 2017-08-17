@@ -3,7 +3,6 @@
 exports[`class instanciate 1`] = `
 ClassDecoratorExample {
   "age": 16,
-  "date": "2017-08-08",
   "point": false,
 }
 `;
@@ -29,6 +28,10 @@ Object {
       "format": "date",
       "type": "string",
     },
+    "firstName": Object {
+      "minLength": 5,
+      "type": "string",
+    },
     "lastName": Object {
       "minLength": 5,
       "type": "string",
@@ -41,8 +44,30 @@ Object {
       "title": "Name",
       "type": "string",
     },
+    "project": Object {
+      "$schema": "http://json-schema.org/schema#",
+      "description": "",
+      "id": "Project",
+      "properties": Object {
+        "goal": Object {
+          "type": "string",
+        },
+        "id": Object {
+          "type": "number",
+        },
+        "owner": Object {
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "id",
+      ],
+      "title": "Project",
+      "type": "object",
+    },
   },
   "required": Array [
+    "firstName",
     "lastName",
   ],
   "title": "ClassDecoratorExample",

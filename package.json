@@ -22,21 +22,23 @@
   },
   "devDependencies": {
     "react-scripts": "",
-    "tslib": "",
-    "@types/react": "",
-    "@types/react-dom": "",
-    "@types/jest": "",
-    "@types/node": "",
-    "ts-jest": "",
+    "ts-jest": "^20.0.10",
     "eslint-config-react-app": "",
-    "jest": ""
+    "jest": "^20.0.4"
   },
   "dependencies": {
-    "react": "",
-    "react-dom": "",
-    "mobx": "",
-    "mobx-react": "",
-    "js-plus": ""
+    "@types/jest": "^20.0.6",
+    "@types/node": "^8.0.20",
+    "@types/react-test-renderer": "^15.5.2",
+    "@types/reflect-metadata": "0.0.5",
+    "ajv": "^5.2.2",
+    "js-plus": "^0.1.1",
+    "mobx": "^3.2.2",
+    "mobx-react": "^4.2.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
+    "tslib": "^1.7.1"
   },
   "keywords": [],
   "license": "MIT",
@@ -46,7 +48,11 @@
       ".(ts|tsx)": "<rootDir>/../node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": ["ts", "tsx", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
     "rootDir": "app"
   }
 }
