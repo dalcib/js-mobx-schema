@@ -18,6 +18,7 @@ export function schema(schema: JsonSchema = {}): PropertyDecorator {
     //const jsonSchema = Object.assign(baseSchema, target.constructor.schema)
     jsonSchema.title = target.constructor.name.toString()
     jsonSchema.id = target.constructor.name.toString()
+    const newInstance = new target.constructor()
 
     if (
       //schema.required &&
@@ -48,7 +49,6 @@ export function schema(schema: JsonSchema = {}): PropertyDecorator {
       jsonSchema.properties[propertyKey].default = newInstance[propertyKey]
     }*/
 
-    const newInstance = new target.constructor()
     const t = Reflect.getMetadata('design:type', newInstance, propertyKey)
     if (t && t.name && jsonSchema.properties[propertyKey].type !== 'integer') {
       if (['String', 'Number', 'Boolean', 'Array'].indexOf(t.name) === -1) {
@@ -56,6 +56,17 @@ export function schema(schema: JsonSchema = {}): PropertyDecorator {
         jsonSchema.properties[propertyKey].type = 'object'
       } else {
         jsonSchema.properties[propertyKey].type = t.name.toLowerCase()
+      }
+    }
+
+    if (
+      jsonSchema.properties[propertyKey].type === 'object' &&
+      newInstance[propertyKey] &&
+      newInstance[propertyKey].constructor.schema
+    ) {
+      jsonSchema.properties[propertyKey] = {
+        ...jsonSchema.properties[propertyKey],
+        ...newInstance[propertyKey].constructor.schema,
       }
     }
 

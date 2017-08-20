@@ -18,6 +18,7 @@ const ajv = new Ajv({
 })
 
 interface NoParamConstructor<T> {
+  [key: string]: any | T
   schema: JsonSchema
   new (): T
 }
@@ -39,21 +40,13 @@ export default class Model<T> {
 
   constructor(SchemaClass: NoParamConstructor<T>) {
     const instance: T | any = new SchemaClass()
-    const properties = SchemaClass.schema.properties
-    Object.keys(properties).forEach((key: string) => {
-      const defaultValue: any = (properties as any)[key].default
-      if (!instance[key]) {
-        if ((properties as any)[key].type === 'array') {
-          instance[key] = []
-        } else {
-          if (!instance[key]) {
-            instance[key] = defaultValue
-          }
-        }
-      }
-    })
+    //const properties = SchemaClass.schema.properties
+    const emptyInstance: T = this.getEmpty(
+      instance,
+      SchemaClass.schema.properties
+    )
 
-    this.data = extendObservable(instance, instance)
+    this.data = extendObservable(emptyInstance, emptyInstance)
     const validate: Ajv.ValidateFunction = ajv.compile(SchemaClass.schema)
     autorun(() => {
       this.isValid = validate(toJS(this.data))
@@ -61,6 +54,44 @@ export default class Model<T> {
       //this.errorsMessages = this.convertErrors(validate.errors)
     })
   }
+
+  getEmpty(
+    instance: T,
+    properties: { [property: string]: JsonSchema } | undefined
+  ) {
+    const emptyInstance: T = instance
+    if (properties) {
+      Object.keys(properties).forEach((key: keyof T) => {
+        const defaultValue: any = properties[key].default
+        if (properties[key].type === 'object') {
+          let schema: JsonSchema = properties[key] || {}
+          let objectInstance: T = {} as T
+          if (instance[key] && instance[key].constructor) {
+            const Constructor: any = emptyInstance[key].constructor
+            const schemaConstructor: JsonSchema =
+              (emptyInstance[key].constructor as any).schema || {}
+            objectInstance = new Constructor()
+            schema = { ...schemaConstructor }
+          }
+          ;(emptyInstance as any)[key] = this.getEmpty(
+            objectInstance,
+            schema.properties
+          )
+        }
+        if (!emptyInstance[key]) {
+          if (properties[key].type === 'array') {
+            emptyInstance[key] = <any>[]
+          } else {
+            if (!emptyInstance[key]) {
+              emptyInstance[key] = defaultValue
+            }
+          }
+        }
+      })
+    }
+    return emptyInstance
+  }
+
   convertErrors(errors: Ajv.ErrorObject[] | undefined) {
     if (errors) {
       return errors.reduce((result: any, error: Ajv.ErrorObject) => {
@@ -79,6 +110,12 @@ export default class Model<T> {
   @action
   handleChange = (field: keyof T, value: any) => {
     this.data[field] = value
+  }
+
+  @action
+  add = (array: string)=>{
+    if (typeof this.data[array] == 'array')
+    (this.data[array] as any[]).push({})
   }
 
   l = (

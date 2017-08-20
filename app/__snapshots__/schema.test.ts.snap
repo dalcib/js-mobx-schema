@@ -4,6 +4,7 @@ exports[`class instanciate 1`] = `
 ClassDecoratorExample {
   "age": 16,
   "point": false,
+  "project": Project {},
 }
 `;
 
@@ -63,6 +64,17 @@ Object {
         "id",
       ],
       "title": "Project",
+      "type": "object",
+    },
+    "task": Object {
+      "properties": Object {
+        "checked": Object {
+          "type": "boolean",
+        },
+        "message": Object {
+          "type": "string",
+        },
+      },
       "type": "object",
     },
   },

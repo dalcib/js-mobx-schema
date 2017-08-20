@@ -45,7 +45,12 @@ class ClassDecoratorExample {
   @schema({ type: 'array' /*, items: [{ type: 'string' }]*/ })
   list: string[]
 
-  @schema(Project.schema) project = new Project()
+  @schema() project = new Project()
+
+  @schema({
+    properties: { message: { type: 'string' }, checked: { type: 'boolean' } },
+  })
+  task: { message: string; checked: boolean }
 }
 
 const example = new ClassDecoratorExample()
@@ -74,6 +79,17 @@ export const classSchema = {
       },
       required: ['id'],
       title: 'Project',
+      type: 'object',
+    },
+    task: {
+      properties: {
+        checked: {
+          type: 'boolean',
+        },
+        message: {
+          type: 'string',
+        },
+      },
       type: 'object',
     },
   },

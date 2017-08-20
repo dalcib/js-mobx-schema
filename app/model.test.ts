@@ -82,21 +82,25 @@ describe('validate', () => {
     ) */
   })
 
+  it('get empty', () => {
+    expect(model.data).toMatchSnapshot()
+  })
+
   it('should set errors', () => {
-    expect(model.errors && model.errors.length).toEqual(4)
+    expect(model.errors && model.errors.length).toEqual(5)
     model.data.name = 'dalci'
-    expect(model.errors && model.errors.length).toEqual(3)
+    expect(model.errors && model.errors.length).toEqual(4)
     model.data.firstName = 'dalcib'
-    expect(model.errors && model.errors.length).toEqual(2)
+    expect(model.errors && model.errors.length).toEqual(3)
     model.data.lastName = 'dalcib'
-    expect(model.errors && model.errors.length).toEqual(1)
+    expect(model.errors && model.errors.length).toEqual(2)
     model.data.age = 48
-    expect(model.errors && model.errors.length).toEqual(1)
+    expect(model.errors && model.errors.length).toEqual(2)
     model.data.age = 20
-    expect(model.errors && model.errors.length).toEqual(null)
+    expect(model.errors && model.errors.length).toEqual(1)
     model.data.date = 'xxx'
-    expect(model.errors && model.errors.length).toEqual(1)
+    expect(model.errors && model.errors.length).toEqual(2)
     model.data.lastName = 'asdfgg'
-    expect(model.errors && model.errors.length).toEqual(1)
+    expect(model.errors && model.errors.length).toEqual(2)
   })
 })

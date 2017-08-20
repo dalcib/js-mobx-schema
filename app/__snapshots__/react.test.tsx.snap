@@ -7,8 +7,8 @@ exports[`component test renderer 1`] = `
       onChange={[Function]}
       value="fghkkk"
     />
-    {"firstName":"is a required property","lastName":"is a required property"}
-    data.firstName is a required property, data.lastName is a required property
+    {"firstName":"is a required property","lastName":"is a required property","project.id":"is a required property"}
+    data.firstName is a required property, data.lastName is a required property, data.project.id is a required property
   </div>
 </div>
 `;
@@ -20,8 +20,8 @@ exports[`component test renderer 2`] = `
       onChange={[Function]}
       value="aaaaa"
     />
-    {"firstName":"is a required property","lastName":"is a required property"}
-    data.firstName is a required property, data.lastName is a required property
+    {"firstName":"is a required property","lastName":"is a required property","project.id":"is a required property"}
+    data.firstName is a required property, data.lastName is a required property, data.project.id is a required property
   </div>
 </div>
 `;
@@ -33,8 +33,8 @@ exports[`component test renderer 3`] = `
       onChange={[Function]}
       value="aaaaa"
     />
-    {"firstName":"should NOT be shorter than 5 characters","lastName":"is a required property"}
-    data.firstName should NOT be shorter than 5 characters, data.lastName is a required property
+    {"firstName":"should NOT be shorter than 5 characters","lastName":"is a required property","project.id":"is a required property"}
+    data.firstName should NOT be shorter than 5 characters, data.lastName is a required property, data.project.id is a required property
   </div>
 </div>
 `;
@@ -46,8 +46,8 @@ exports[`component test renderer 4`] = `
       onChange={[Function]}
       value="aaaaa"
     />
-    {"lastName":"is a required property"}
-    data.lastName is a required property
+    {"lastName":"is a required property","project.id":"is a required property"}
+    data.lastName is a required property, data.project.id is a required property
   </div>
 </div>
 `;

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`validate get empty 1`] = `
+ClassDecoratorExample {
+  "age": 49,
+  "cars": undefined,
+  "date": undefined,
+  "firstName": undefined,
+  "lastName": undefined,
+  "list": Array [],
+  "name": Object {
+    "sdfsfsd": 234,
+  },
+  "point": false,
+  "project": Project {
+    "goal": undefined,
+    "id": undefined,
+    "owner": undefined,
+  },
+  "task": Object {
+    "checked": undefined,
+    "message": undefined,
+  },
+}
+`;
