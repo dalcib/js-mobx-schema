@@ -17,10 +17,11 @@ const ajv = new Ajv({
   //jsonPointers: true,
 })
 
-interface NoParamConstructor<T> {
-  [key: string]: any | T
+interface NoParamConstructor<H> {
+  [key: string]: any
+  //[key: string]: H[keyof H] | JsonSchema
   schema: JsonSchema
-  new (): T
+  new (): H
 }
 
 export default class Model<T> {
@@ -39,12 +40,9 @@ export default class Model<T> {
   //@observable errorsMessages: any
 
   constructor(SchemaClass: NoParamConstructor<T>) {
-    const instance: T | any = new SchemaClass()
+    const instance = new SchemaClass()
     //const properties = SchemaClass.schema.properties
-    const emptyInstance: T = this.getEmpty(
-      instance,
-      SchemaClass.schema.properties
-    )
+    const emptyInstance = this.getEmpty(instance, SchemaClass.schema.properties)
 
     this.data = extendObservable(emptyInstance, emptyInstance)
     const validate: Ajv.ValidateFunction = ajv.compile(SchemaClass.schema)
@@ -113,9 +111,14 @@ export default class Model<T> {
   }
 
   @action
-  add = (array: string)=>{
-    if (typeof this.data[array] == 'array')
-    (this.data[array] as any[]).push({})
+  add = (arrayName: keyof T) => {
+    if (this.data.hasOwnProperty(arrayName)) {
+      if (this.data[arrayName] instanceof Array) {
+        if (Array.isArray(this.data[arrayName])) {
+          ;(this.data[arrayName] as any).push({})
+        }
+      }
+    }
   }
 
   l = (
@@ -143,7 +146,7 @@ export default class Model<T> {
   })
 }
 
-interface MyEventTarget extends EventTarget {
+interface MyEventTarget /* extends EventTarget */ {
   value: string
   checked?: boolean
   type?: string

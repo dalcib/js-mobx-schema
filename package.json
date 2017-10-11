@@ -1,5 +1,5 @@
 {
-  "name": " ",
+  "name": "-",
   "version": "0.1.8",
   "description": "",
   "private": true,
@@ -29,15 +29,18 @@
   "dependencies": {
     "@types/jest": "^20.0.6",
     "@types/node": "^8.0.20",
+    "@types/react-dom": "^15.5.6",
     "@types/react-test-renderer": "^15.5.2",
     "@types/reflect-metadata": "0.0.5",
     "ajv": "^5.2.2",
+    "formstate": "^0.24.0",
     "js-plus": "^0.1.1",
     "mobx": "^3.2.2",
     "mobx-react": "^4.2.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
+    "reflect-metadata": "^0.1.10",
     "tslib": "^1.7.1"
   },
   "keywords": [],

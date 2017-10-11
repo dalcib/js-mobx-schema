@@ -5,7 +5,7 @@
     "outDir": "src",
     "rootDir": "app",
     "sourceMap": true,
-    "lib": ["es6"],
+    "lib": ["es6","DOM"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "jsx": "react",
