@@ -90,6 +90,10 @@ export default class Model<T> {
     return emptyInstance
   }
 
+ fieldError(field:string) {
+    return this.errorsMessages[field]
+  } 
+
   convertErrors(errors: Ajv.ErrorObject[] | undefined) {
     if (errors) {
       return errors.reduce((result: any, error: Ajv.ErrorObject) => {

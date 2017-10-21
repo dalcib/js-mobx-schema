@@ -9,9 +9,9 @@ const model = new Model(ClassDecoratorExample)
 
 class State {
   // Create a field
-  age = new FieldState(model.data.age, model, 'age').validators(
+  age = new FieldState(model.data.age, model, 'age')/* .validators(
     val => !val && 'username required'
-  )
+  ) */
 
   // Compose fields into a form
   form = new FormState({
